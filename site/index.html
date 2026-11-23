@@ -153,99 +153,80 @@
       <div class="demo-copy">
         <p class="kicker">Try it</p>
         <h2 id="demo-h" data-split>Hold it in your hands.</h2>
-        <p class="sub">A mocked foldable phone running the real engine. Pick a state, change the ink, drag the sliders, unfold it, and watch the Swift call change with you.</p>
+        <p class="sub">A mocked iPhone running the real engine. Pick a state, change the ink, drag the sliders in the settings next to it, and watch the Swift call change with you.</p>
         <ul class="steps">
-          <li><b>Unfold</b> the phone for the tuning screen.</li>
+          <li><b>Settings</b> beside the phone change everything live.</li>
           <li><b>Play agent run</b> for a scripted conversation.</li>
           <li><b>Leadwolf CarPlay</b> is the preset used in a real app.</li>
         </ul>
       </div>
-      <div class="stage" id="stage">
-      <div class="stage-bar">
-        <button class="btn small" id="fold" type="button" aria-pressed="false">Unfold</button>
-        <span class="caption">Mocked foldable phone, not a real device</span>
-      </div>
-      <div class="device-fit" id="device-fit">
-        <div class="device" id="device" role="group" aria-label="Interactive demo in a mocked foldable phone">
-          <div class="device-body">
-            <div class="island" aria-hidden="true"></div>
-            <div class="screens">
-
-              <!-- screen 1: the app -->
-              <section class="screen screen-app dark" id="screen-app" aria-label="Demo app">
-                <div class="status" aria-hidden="true"><span>9:41</span><span class="bars"><i></i><i></i><i></i><i></i></span></div>
-                <div class="app-head">
-                  <div>
-                    <div class="app-title">Assistant</div>
-                    <div class="app-sub" id="app-sub">connecting</div>
-                  </div>
-                  <button class="chip tune-open" id="tune-open" type="button">Tune</button>
-                </div>
-
-                <div class="orb-card"><canvas id="orb-stage" aria-label="Orb preview"></canvas></div>
-
-                <div class="chat" aria-live="polite">
-                  <div class="msg me">Plan a quiet route to the lake.</div>
-                  <div class="msg ai">
-                    <canvas id="orb-chat" width="20" height="20" aria-hidden="true"></canvas>
-                    <span id="chat-label">Connecting…</span>
-                  </div>
-                  <div class="msg ai answer" id="answer" hidden></div>
-                </div>
-
-                <div class="app-foot">
-                  <button class="btn small primary" id="play" type="button">Play agent run</button>
-                  <span class="mock">mock conversation</span>
-                </div>
-                <div class="home" aria-hidden="true"></div>
-              </section>
-
-              <!-- screen 2: tuning (a sheet when folded, the right half when unfolded) -->
-              <section class="screen screen-tune dark" id="screen-tune" aria-label="Tuning controls">
-                <div class="status" aria-hidden="true"><span></span><span class="bars"><i></i><i></i><i></i><i></i></span></div>
-                <div class="tune-head">
-                  <div class="app-title">Tune</div>
-                  <button class="chip tune-close" id="tune-close" type="button">Done</button>
-                </div>
-                <div class="tune-scroll">
-                  <div class="group">
-                    <div class="label">State</div>
-                    <div class="chips" id="state-chips"></div>
-                  </div>
-                  <div class="group two">
+      <div class="phone-col" id="stage">
+        <div class="device-fit" id="device-fit">
+          <div class="device" id="device" role="group" aria-label="Interactive demo in a mocked iPhone">
+            <div class="device-body">
+              <div class="island" aria-hidden="true"></div>
+              <div class="screens">
+                <section class="screen screen-app dark" id="screen-app" aria-label="Demo app">
+                  <div class="status" aria-hidden="true"><span>9:41</span><span class="bars"><i></i><i></i><i></i><i></i></span></div>
+                  <div class="app-head">
                     <div>
-                      <div class="label">Theme</div>
-                      <div class="seg" role="group" aria-label="Theme" id="seg-theme"></div>
-                    </div>
-                    <div>
-                      <div class="label">Palette</div>
-                      <div class="seg" role="group" aria-label="Palette" id="seg-palette"></div>
+                      <div class="app-title">Assistant</div>
+                      <div class="app-sub" id="app-sub">connecting</div>
                     </div>
                   </div>
-                  <div class="group colors" id="colors">
-                    <label>Colour <input type="color" id="c-near" value="#0071e3"></label>
-                    <label id="far-wrap">Far <input type="color" id="c-far" value="#e659bf"></label>
+                  <div class="orb-card"><canvas id="orb-stage" aria-label="Orb preview"></canvas></div>
+                  <div class="chat" aria-live="polite">
+                    <div class="msg me">Plan a quiet route to the lake.</div>
+                    <div class="msg ai">
+                      <canvas id="orb-chat" width="20" height="20" aria-hidden="true"></canvas>
+                      <span id="chat-label">Connecting…</span>
+                    </div>
+                    <div class="msg ai answer" id="answer" hidden></div>
                   </div>
-                  <div class="group sliders" id="sliders"></div>
-                  <div class="group">
-                    <div class="label">Presets</div>
-                    <div class="chips" id="preset-chips"></div>
+                  <div class="app-foot">
+                    <button class="btn small primary" id="play" type="button">Play agent run</button>
+                    <span class="mock">mock conversation</span>
                   </div>
-                  <div class="group">
-                    <div class="label">Swift</div>
-                    <pre class="code mini" id="code-mini"><code></code></pre>
-                    <button class="btn small" id="copy-code" type="button">Copy code</button>
-                  </div>
-                </div>
-                <div class="home" aria-hidden="true"></div>
-              </section>
-
+                  <div class="home" aria-hidden="true"></div>
+                </section>
+              </div>
             </div>
-            <div class="crease" aria-hidden="true"></div>
           </div>
         </div>
+        <p class="caption">Mocked iPhone, not a real device</p>
       </div>
-    </div>
+
+      <aside class="panel" aria-label="Orb settings">
+        <h3>Settings</h3>
+        <div class="group">
+          <div class="label">State</div>
+          <div class="chips" id="state-chips"></div>
+        </div>
+        <div class="group two">
+          <div>
+            <div class="label">Theme</div>
+            <div class="seg" role="group" aria-label="Theme" id="seg-theme"></div>
+          </div>
+          <div>
+            <div class="label">Palette</div>
+            <div class="seg" role="group" aria-label="Palette" id="seg-palette"></div>
+          </div>
+        </div>
+        <div class="group colors" id="colors">
+          <label>Colour <input type="color" id="c-near" value="#0071e3"></label>
+          <label id="far-wrap">Far <input type="color" id="c-far" value="#e659bf"></label>
+        </div>
+        <div class="group sliders" id="sliders"></div>
+        <div class="group">
+          <div class="label">Presets</div>
+          <div class="chips" id="preset-chips"></div>
+        </div>
+        <div class="group">
+          <div class="label">Swift</div>
+          <pre class="code mini" id="code-mini"><code></code></pre>
+          <button class="btn small" id="copy-code" type="button">Copy code</button>
+        </div>
+      </aside>
     </div>
   </section>
 

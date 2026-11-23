@@ -5,7 +5,7 @@ Dotsphere by Fabian Faraz Farid.
 Landing page of [Dotsphere](https://github.com/farazfarid/dotsphere), the Swift package of dotted thought-orbs for SwiftUI.
 Static site: plain HTML, CSS and ES modules, no build step, no third-party requests, no cookies.
 
-The demo (a mocked foldable phone) runs the engine of [thinking-orbs](https://github.com/Jakubantalik/thinking-orbs) by Jakub Antalik (MIT, bundled unchanged in
+The demo (a mocked iPhone with a settings panel beside it) runs the engine of [thinking-orbs](https://github.com/Jakubantalik/thinking-orbs) by Jakub Antalik (MIT, bundled unchanged in
 `site/assets/js/vendor/`) plus the additions of Dotsphere (`site/assets/js/dotsphere.js`), translated from the Swift package.
 
 ```bash

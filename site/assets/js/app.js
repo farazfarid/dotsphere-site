@@ -73,13 +73,12 @@ for (const [name, patch] of PRESETS) {
 }
 
 const device = $('#device');
-const screenApp = $('#screen-app'), screenTune = $('#screen-tune');
+const screenApp = $('#screen-app');
 const codeMini = $('#code-mini code');
 
 function apply() {
   const dark = S.dark;
   screenApp.classList.toggle('dark', dark); screenApp.classList.toggle('light', !dark);
-  screenTune.classList.toggle('dark', dark); screenTune.classList.toggle('light', !dark);
 
   if (stage.size !== S.size) stage.resize(S.size);
   stage.set(styleFor(S.size), dark);
@@ -104,29 +103,15 @@ function apply() {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
-// The phone: fold, tune sheet, scaling to fit
+// The phone, scaled down only when its column is narrower than the phone
 const fit = $('#device-fit'), stageEl = $('#stage');
-const DEVICE_H = 640;
+const DEVICE_W = 300, DEVICE_H = 640;
 function layout() {
-  const open = device.classList.contains('open');
-  const dw = open ? 580 : 300;
-  const k = Math.min(1, (stageEl.clientWidth || dw) / dw);
+  const k = Math.min(1, (stageEl.clientWidth || DEVICE_W) / DEVICE_W);
   device.style.transform = `scale(${k})`;
   fit.style.height = Math.round(DEVICE_H * k) + 'px';
-  screenTune.inert = !open && !device.classList.contains('sheet');
 }
 new ResizeObserver(layout).observe(stageEl);
-
-const foldBtn = $('#fold');
-foldBtn.addEventListener('click', () => {
-  const open = device.classList.toggle('open');
-  device.classList.remove('sheet');
-  foldBtn.setAttribute('aria-pressed', String(open));
-  foldBtn.textContent = open ? 'Fold' : 'Unfold';
-  layout();
-});
-$('#tune-open').addEventListener('click', () => { device.classList.add('sheet'); layout(); });
-$('#tune-close').addEventListener('click', () => { device.classList.remove('sheet'); layout(); });
 
 // ---------------------------------------------------------------------------------------------------------------------
 // The scripted agent run
