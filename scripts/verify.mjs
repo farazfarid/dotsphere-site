@@ -64,6 +64,6 @@ for (const c of swift.cases) {
   const t = c.tuned ? c.t * r.speed * 2 : c.t;
   compareFrame(key, frameAt(r.mode, c.size, t, r.opts), c.dots, c.lines);
 }
-console.log(`swift: ${swift.cases.length} cases (${ORIGINAL_STATES.length} original + 15 added states, both sizes, tuned)`);
+console.log(`swift: ${swift.cases.length} cases (${ORIGINAL_STATES.length} original + 39 added states, both sizes, tuned)`);
 console.log(`${values} values compared, largest difference ${worst.toExponential(2)}, ${bad} failures`);
 process.exit(bad ? 1 : 0);

@@ -1,11 +1,14 @@
 // Dotsphere for the web: the engine of thinking-orbs by Jakub Antalik (vendor/, MIT) plus the additions of Dotsphere
 // (fifteen extra states, palettes, count and size multipliers), translated from the Swift package so both behave the same.
+import { MORE_FRAMES } from './modes2.js';
 import { MODE_FRAMES, finalizeFrame, makeProj, radiusScale, fibDir, frac, lerp, BASE_PROFILES, PRESETS } from './vendor/thinking-orbs-engine.js';
 
 export const ORIGINAL_STATES = ['working', 'searching', 'solving', 'listening', 'connecting', 'weaving', 'composing', 'breathing', 'shaping'];
 export const ADDED_STATES = [
   'pulsing', 'scanning', 'charging',
   'orbiting', 'rippling', 'spinning', 'syncing', 'uploading', 'downloading', 'typing', 'recording', 'spiraling', 'progressing', 'waving', 'transforming',
+  'blinking', 'heartbeat', 'bubbling', 'raining', 'broadcasting', 'twinkling', 'swarming', 'swinging', 'bouncing', 'juggling', 'swirling', 'equalizing',
+  'reading', 'drawing', 'focusing', 'streaming', 'ticking', 'waiting', 'flipping', 'rolling', 'blooming', 'knotting', 'sequencing', 'bursting',
 ];
 export const STATES = [...ORIGINAL_STATES, ...ADDED_STATES];
 
@@ -15,6 +18,10 @@ const STATE_TO_MODE = {
   pulsing: 'pulse', scanning: 'radar', charging: 'charge',
   orbiting: 'orbit', rippling: 'ripple', spinning: 'spinner', syncing: 'gyro', uploading: 'rise', downloading: 'fall', typing: 'typing',
   recording: 'record', spiraling: 'spiral', progressing: 'progress', waving: 'sheet', transforming: 'cube',
+  blinking: 'blink', heartbeat: 'heart', bubbling: 'bubble', raining: 'rain', broadcasting: 'broadcast', twinkling: 'twinkle', swarming: 'swarm',
+  swinging: 'cradle', bouncing: 'bounce', juggling: 'juggle', swirling: 'swirl', equalizing: 'equalizer', reading: 'reader', drawing: 'draw',
+  focusing: 'focus', streaming: 'stream', ticking: 'clock', waiting: 'glass', flipping: 'coin', rolling: 'roll', blooming: 'bloom',
+  knotting: 'knot', sequencing: 'dna', bursting: 'burst',
 };
 
 // --- additions: profiles and presets (same numbers as the Swift package) -----------------------------------------------
@@ -34,6 +41,30 @@ const EXTRA_PROFILES = {
   progress: { dotN: 40, rBase: 1.8, rDepth: 2.0, rsPow: 0.6, rMin: 0.3 },
   sheet: { lanes: 14, segs: 14, rBase: 0.9, rDepth: 1.6, rsPow: 0.6, rMin: 0.3 },
   cube: { dotN: 180, rBase: 0.8, rDepth: 1.6, rsPow: 0.6, rMin: 0.3 },
+  blink: { dotN: 26, rBase: 1.3, rDepth: 1.6, rsPow: 0.6, rMin: 0.3 },
+  heart: { dotN: 64, rBase: 1.8, rDepth: 1.8, rsPow: 0.6, rMin: 0.3 },
+  bubble: { dotN: 34, rimN: 24, rBase: 2.0, rDepth: 2.2, rsPow: 0.6, rMin: 0.3 },
+  rain: { dotN: 44, rBase: 1.7, rDepth: 1.8, rsPow: 0.6, rMin: 0.3 },
+  broadcast: { ringN: 4, dotN: 16, rBase: 1.6, rDepth: 1.8, rsPow: 0.6, rMin: 0.3 },
+  twinkle: { dotN: 220, rBase: 1.0, rDepth: 1.4, rsPow: 0.6, rMin: 0.3 },
+  swarm: { dotN: 60, rBase: 1.5, rDepth: 1.8, rsPow: 0.6, rMin: 0.3 },
+  cradle: { latRings: 4, lonDensity: 9, rBase: 1.0, rDepth: 1.6, rsPow: 0.6, rMin: 0.3 },
+  bounce: { latRings: 7, lonDensity: 16, rBase: 0.9, rDepth: 1.6, rsPow: 0.6, rMin: 0.3 },
+  juggle: { latRings: 3, lonDensity: 7, rBase: 1.4, rDepth: 1.8, rsPow: 0.6, rMin: 0.3 },
+  swirl: { dotN: 240, rBase: 1.0, rDepth: 1.5, rsPow: 0.6, rMin: 0.3 },
+  equalizer: { lanes: 9, segs: 10, rBase: 1.6, rDepth: 1.4, rsPow: 0.6, rMin: 0.3 },
+  reader: { lanes: 8, segs: 20, rBase: 1.4, rDepth: 1.2, rsPow: 0.6, rMin: 0.3 },
+  draw: { dotN: 120, rBase: 1.8, rDepth: 2.0, rsPow: 0.6, rMin: 0.3 },
+  focus: { dotN: 8, rBase: 1.6, rDepth: 1.4, rsPow: 0.6, rMin: 0.3 },
+  stream: { lanes: 3, segs: 18, rBase: 1.9, rDepth: 1.8, rsPow: 0.6, rMin: 0.3 },
+  clock: { dotN: 60, rBase: 1.2, rDepth: 1.4, rsPow: 0.6, rMin: 0.3 },
+  glass: { latRings: 9, lonDensity: 22, rBase: 1.0, rDepth: 1.5, rsPow: 0.6, rMin: 0.3 },
+  coin: { ringN: 5, dotN: 60, rBase: 1.1, rDepth: 1.6, rsPow: 0.6, rMin: 0.3 },
+  roll: { latRings: 7, lonDensity: 16, dotN: 20, rBase: 0.9, rDepth: 1.6, rsPow: 0.6, rMin: 0.3 },
+  bloom: { ringN: 4, dotN: 64, rBase: 1.5, rDepth: 1.6, rsPow: 0.6, rMin: 0.3 },
+  knot: { dotN: 160, rBase: 2.0, rDepth: 2.0, rsPow: 0.6, rMin: 0.3 },
+  dna: { dotN: 44, rBase: 1.8, rDepth: 2.0, rsPow: 0.6, rMin: 0.3 },
+  burst: { dotN: 120, rBase: 1.7, rDepth: 1.8, rsPow: 0.6, rMin: 0.3 },
 };
 const EXTRA_PRESETS = {
   pulse: { 64: { speed: 2.0, count: 1, size: 1 }, 20: { speed: 2.4, count: 1, size: 1.9, extra: { ringN: 3 } } },
@@ -51,6 +82,30 @@ const EXTRA_PRESETS = {
   progress: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.5, size: 1.5 } },
   sheet: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.3, size: 1.8 } },
   cube: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.25, size: 1.8 } },
+  blink: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.5, size: 1.5 } },
+  heart: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.5, size: 1.5 } },
+  bubble: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.35, size: 1.6 } },
+  rain: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.4, size: 1.6 } },
+  broadcast: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.5, size: 1.5 } },
+  twinkle: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.2, size: 1.8 } },
+  swarm: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.3, size: 1.6 } },
+  cradle: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.35, size: 1.3 } },
+  bounce: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.3, size: 1.5 } },
+  juggle: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.4, size: 1.4 } },
+  swirl: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.3, size: 1.8 } },
+  equalizer: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.4, size: 1.5 } },
+  reader: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.4, size: 1.5 } },
+  draw: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.4, size: 1.6 } },
+  focus: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.5, size: 1.4 } },
+  stream: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.4, size: 1.5 } },
+  clock: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.5, size: 1.5 } },
+  glass: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.3, size: 1.6 } },
+  coin: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.3, size: 1.5 } },
+  roll: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.35, size: 1.5 } },
+  bloom: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.4, size: 1.5 } },
+  knot: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.3, size: 1.7 } },
+  dna: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.5, size: 1.5 } },
+  burst: { 64: { speed: 1.0, count: 1, size: 1 }, 20: { speed: 1.2, count: 0.4, size: 1.7 } },
 };
 
 // --- scaling (profiles.ts of the original, plus the two count keys of the additions) ------------------------------------
@@ -481,6 +536,7 @@ const EXTRA_FRAMES = {
   pulse: framePulse, radar: frameRadar, charge: frameCharge,
   orbit: frameOrbit, ripple: frameRipple, spinner: frameSpinner, gyro: frameGyro, rise: frameFlow, fall: frameFlow, typing: frameTyping,
   record: frameRecord, spiral: frameSpiral, progress: frameProgress, sheet: frameSheet, cube: frameCube,
+  ...MORE_FRAMES,
 };
 
 /** Geometry for one instant: `t` is orb time (seconds x preset speed x user speed). */

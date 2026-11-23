@@ -9,7 +9,7 @@ Live: https://dotsphere.farazfarid.com · GitHub `farazfarid/dotsphere-site` (ö
 - Keine Cookies, kein Tracking, nichts von Dritten laden (keine Schriften, keine Skripte). Die CSP in `nginx.conf` erlaubt nur `'self'`
   und keine Inline-Stile oder -Skripte: Stile über Klassen in `site/assets/style.css`, dynamische Werte nur per `element.style` im Skript.
 - Jakub Antalik (Original thinking-orbs) immer nennen, Seite ist ein inoffizieller Port. Keine Superlative, keine Garantien, keine Emojis.
-- Engine: `site/assets/js/vendor/thinking-orbs-engine.js` ist das gebündelte Original (nicht ändern), Zusätze in `site/assets/js/dotsphere.js`.
+- Engine: `site/assets/js/vendor/thinking-orbs-engine.js` ist das gebündelte Original (nicht ändern), Zusätze in `site/assets/js/dotsphere.js` und `site/assets/js/modes2.js`.
   Nach Änderungen an Zusatzzuständen oder Presets im Swift-Paket: `scripts/swift-reference.json` neu erzeugen und `node scripts/verify.mjs` laufen lassen.
 - Hosting-Muster wie `letterslot-site`, `lifeboat-site`: Projekt „LuminaX Websites“ in Coolify, Port 80.
 
