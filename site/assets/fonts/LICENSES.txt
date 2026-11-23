@@ -1,0 +1,4 @@
+Fonts hosted on this domain, all under the SIL Open Font License 1.1 (https://openfontlicense.org):
+- Geist and Geist Mono, Copyright The Geist Project Authors (https://github.com/vercel/geist-font)
+- Instrument Serif, Copyright The Instrument Serif Project Authors (https://github.com/Instrument/instrument-serif)
+Delivered via the Fontsource packages @fontsource-variable/geist, @fontsource-variable/geist-mono and @fontsource/instrument-serif (OFL-1.1).

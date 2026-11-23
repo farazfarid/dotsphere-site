@@ -1,5 +1,7 @@
 # dotsphere.farazfarid.com
 
+Dotsphere by Fabian Faraz Farid.
+
 Landing page of [Dotsphere](https://github.com/farazfarid/dotsphere), the Swift package of dotted thought-orbs for SwiftUI.
 Static site: plain HTML, CSS and ES modules, no build step, no third-party requests, no cookies.
 
