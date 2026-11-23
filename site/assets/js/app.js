@@ -10,10 +10,15 @@ const TAGS = {
   listening: 'a waveform rolls through rings', connecting: 'a constellation wires itself', weaving: 'three strands plait',
   composing: 'an undulating sash', breathing: 'a ring slowly morphing', shaping: 'circle, triangle, square',
   pulsing: 'sonar rings from a beating core', scanning: 'a sweep crosses a dotted disc', charging: 'a sphere fills from the bottom',
+  orbiting: 'a comet circles a planet', rippling: 'waves cross a dotted sphere', spinning: 'the classic spinner', syncing: 'three rings, like a gyroscope',
+  uploading: 'light runs up the column', downloading: 'light runs down the column', typing: 'three bouncing spheres', recording: 'a beating core, glints on the rim',
+  spiraling: 'a small galaxy', progressing: 'a ring that fills, then empties', waving: 'a dotted sheet like a flag', transforming: 'sphere to cube and back',
 };
 const LABELS = {
   working: 'Working…', searching: 'Searching…', solving: 'Solving…', listening: 'Listening…', connecting: 'Connecting…',
   weaving: 'Weaving…', composing: 'Composing…', breathing: 'Thinking…', shaping: 'Shaping…', pulsing: 'Pulsing…', scanning: 'Scanning…', charging: 'Charging…',
+  orbiting: 'Orbiting…', rippling: 'Rippling…', spinning: 'Loading…', syncing: 'Syncing…', uploading: 'Uploading…', downloading: 'Downloading…', typing: 'Typing…',
+  recording: 'Recording…', spiraling: 'Spiraling…', progressing: 'In progress…', waving: 'Waving…', transforming: 'Transforming…',
 };
 
 // ---------------------------------------------------------------------------------------------------------------------
