@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dotsphere: dotted thought-orbs for SwiftUI</title>
+<meta name="description" content="Twelve animated dotted status orbs for AI, agents and loading states. Pure Swift, no assets, no dependencies. iOS, macOS, tvOS, watchOS and visionOS. MIT.">
+<link rel="canonical" href="https://dotsphere.farazfarid.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#07070b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dotsphere">
+<meta property="og:title" content="Dotsphere: dotted thought-orbs for SwiftUI">
+<meta property="og:description" content="Twelve animated dotted status orbs for AI, agents and loading states. Try them in a mocked foldable phone, then add the Swift package.">
+<meta property="og:url" content="https://dotsphere.farazfarid.com/">
+<meta property="og:image" content="https://dotsphere.farazfarid.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dotsphere.farazfarid.com/og.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Dotsphere","description":"Dotted thought-orb loading indicators for SwiftUI. A Swift port of thinking-orbs by Jakub Antalik with three extra states, palettes and image rendering.","codeRepository":"https://github.com/farazfarid/dotsphere","programmingLanguage":"Swift","license":"https://opensource.org/licenses/MIT","author":{"@type":"Person","name":"Fabian Faraz Farid","url":"https://www.farazfarid.com"},"isBasedOn":"https://github.com/Jakubantalik/thinking-orbs","url":"https://dotsphere.farazfarid.com/"}
+</script>
+</head>
+<body>
+<a class="skip" href="#demo">Skip to the demo</a>
+
+<header class="top">
+  <a class="brand" href="/" aria-label="Dotsphere, home"><canvas id="brand-orb" width="28" height="28" aria-hidden="true"></canvas><span>Dotsphere</span></a>
+  <nav aria-label="Main">
+    <a href="#demo">Demo</a>
+    <a href="#states">States</a>
+    <a href="#install">Install</a>
+    <a href="#credits">Credits</a>
+    <a class="gh" href="https://github.com/farazfarid/dotsphere" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="demo">
+    <div class="hero-copy">
+      <p class="eyebrow">Swift package · MIT</p>
+      <h1>Dotted thought-orbs<br>for SwiftUI.</h1>
+      <p class="lead">Twelve animated status indicators for AI, agents and loading states. Pure Swift, no assets, no dependencies. A native port of <a href="https://github.com/Jakubantalik/thinking-orbs" rel="noopener">thinking-orbs</a>, with three new states, colour palettes and image rendering.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/farazfarid/dotsphere" rel="noopener">View on GitHub</a>
+        <a class="btn" href="#install">Add to Xcode</a>
+      </div>
+      <p class="platforms">iOS 15 · macOS 12 · tvOS 15 · watchOS 8 · visionOS 1</p>
+      <p class="hint">The phone is live. Pick a state, drag the sliders, unfold it, press <b>Play agent run</b>.</p>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="stage-bar">
+        <button class="btn small" id="fold" type="button" aria-pressed="false">Unfold</button>
+        <span class="caption">Mocked foldable phone, not a real device</span>
+      </div>
+      <div class="device-fit" id="device-fit">
+        <div class="device" id="device" role="group" aria-label="Interactive demo in a mocked foldable phone">
+          <div class="device-body">
+            <div class="island" aria-hidden="true"></div>
+            <div class="screens">
+
+              <!-- screen 1: the app -->
+              <section class="screen screen-app dark" id="screen-app" aria-label="Demo app">
+                <div class="status" aria-hidden="true"><span>9:41</span><span class="bars"><i></i><i></i><i></i><i></i></span></div>
+                <div class="app-head">
+                  <div>
+                    <div class="app-title">Assistant</div>
+                    <div class="app-sub" id="app-sub">connecting</div>
+                  </div>
+                  <button class="chip tune-open" id="tune-open" type="button">Tune</button>
+                </div>
+
+                <div class="orb-card"><canvas id="orb-stage" aria-label="Orb preview"></canvas></div>
+
+                <div class="chat" aria-live="polite">
+                  <div class="msg me">Plan a quiet route to the lake.</div>
+                  <div class="msg ai">
+                    <canvas id="orb-chat" width="20" height="20" aria-hidden="true"></canvas>
+                    <span id="chat-label">Connecting…</span>
+                  </div>
+                  <div class="msg ai answer" id="answer" hidden></div>
+                </div>
+
+                <div class="app-foot">
+                  <button class="btn small primary" id="play" type="button">Play agent run</button>
+                  <span class="mock">mock conversation</span>
+                </div>
+                <div class="home" aria-hidden="true"></div>
+              </section>
+
+              <!-- screen 2: tuning (a sheet when folded, the right half when unfolded) -->
+              <section class="screen screen-tune dark" id="screen-tune" aria-label="Tuning controls">
+                <div class="status" aria-hidden="true"><span></span><span class="bars"><i></i><i></i><i></i><i></i></span></div>
+                <div class="tune-head">
+                  <div class="app-title">Tune</div>
+                  <button class="chip tune-close" id="tune-close" type="button">Done</button>
+                </div>
+                <div class="tune-scroll">
+                  <div class="group">
+                    <div class="label">State</div>
+                    <div class="chips" id="state-chips"></div>
+                  </div>
+                  <div class="group two">
+                    <div>
+                      <div class="label">Theme</div>
+                      <div class="seg" role="group" aria-label="Theme" id="seg-theme"></div>
+                    </div>
+                    <div>
+                      <div class="label">Palette</div>
+                      <div class="seg" role="group" aria-label="Palette" id="seg-palette"></div>
+                    </div>
+                  </div>
+                  <div class="group colors" id="colors">
+                    <label>Colour <input type="color" id="c-near" value="#0071e3"></label>
+                    <label id="far-wrap">Far <input type="color" id="c-far" value="#e659bf"></label>
+                  </div>
+                  <div class="group sliders" id="sliders"></div>
+                  <div class="group">
+                    <div class="label">Presets</div>
+                    <div class="chips" id="preset-chips"></div>
+                  </div>
+                  <div class="group">
+                    <div class="label">Swift</div>
+                    <pre class="code mini" id="code-mini"><code></code></pre>
+                    <button class="btn small" id="copy-code" type="button">Copy code</button>
+                  </div>
+                </div>
+                <div class="home" aria-hidden="true"></div>
+              </section>
+
+            </div>
+            <div class="crease" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="states">
+    <h2>Twelve states</h2>
+    <p class="sub">Nine come from the original. The three marked <span class="new">new</span> exist only in Dotsphere. Click one to try it in the phone.</p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="block cols" id="features">
+    <article>
+      <h3>Same maths as the original</h3>
+      <p>The nine original states are a line-by-line translation of the web engine. The tests load the original's own reference file and check every dot: 72 cases, 70,115 values, all within 1e-4. This page runs on the original engine itself, and it agrees with the Swift package to the sixth decimal.</p>
+    </article>
+    <article>
+      <h3>Three more states</h3>
+      <p><b>Pulsing</b> sends sonar rings out from a beating core. <b>Scanning</b> sweeps a dotted disc. <b>Charging</b> fills a sphere from the bottom, holds, drains.</p>
+    </article>
+    <article>
+      <h3>Colour, still depth-shaded</h3>
+      <p>The original is strictly monochrome and stays the default. Tint it with one colour, or let the colour change with depth, from near to far.</p>
+    </article>
+    <article>
+      <h3>For CarPlay, widgets, Live Activities</h3>
+      <p>Where a live view is not possible, render frames to <code>CGImage</code> or an animated <code>UIImage</code>. A crossfade closes the loop seamlessly, even for states that are not periodic.</p>
+    </article>
+    <article>
+      <h3>Tuning built in</h3>
+      <p><code>dots</code>, <code>dotSize</code> and <code>opts</code> change count, size and single mode values. <code>DotOrbPlayground</code> gives you the sliders you just used, on device, and prints the call.</p>
+    </article>
+    <article>
+      <h3>Native and calm</h3>
+      <p>A plain <code>Canvas</code> in a <code>TimelineView</code>. It pauses off screen, holds a still frame with Reduce Motion, and every orb shares one clock so they stay in phase.</p>
+    </article>
+  </section>
+
+  <section class="block" id="install">
+    <h2>Add it</h2>
+    <div class="install">
+      <div>
+        <h3>Swift Package Manager</h3>
+        <pre class="code" id="code-install"><code>.package(url: "https://github.com/farazfarid/dotsphere", from: "1.0.0")</code></pre>
+        <button class="btn small" data-copy="code-install" type="button">Copy</button>
+        <p class="note">or in Xcode: File ▸ Add Package Dependencies…, paste <code>https://github.com/farazfarid/dotsphere</code></p>
+      </div>
+      <div>
+        <h3>Use it</h3>
+        <pre class="code" id="code-use"><code>import Dotsphere
+
+DotOrb(state: .searching, size: 64)
+
+// inline next to text
+HStack { DotOrb(state: .working, size: 20); Text("Thinking…") }
+
+// tuned, tinted
+DotOrb(state: .connecting, size: 64, color: .blue, speed: 2,
+       dots: 2.2, dotSize: 1.2, opts: ["thr": 0.52, "lineW": 1.9])</code></pre>
+        <button class="btn small" data-copy="code-use" type="button">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="block credits" id="credits">
+    <h2>Credits</h2>
+    <p><b>Dotsphere</b> is a Swift port of <a href="https://github.com/Jakubantalik/thinking-orbs" rel="noopener">thinking-orbs</a> by <a href="https://github.com/Jakubantalik" rel="noopener">Jakub Antalik</a>. The orbs, their maths, presets and tuning are his work (MIT). If you build for the web, use the original: <code>npm install thinking-orbs</code>, with <a href="https://orbs.jakubantalik.com" rel="noopener">its own demo</a>. Dotsphere is an unofficial port and not affiliated with the original project. This page uses the original's engine, bundled unchanged, plus the Dotsphere additions.</p>
+    <p>Dotsphere itself, including the three extra states, palettes and this page, is by <a href="https://www.farazfarid.com" rel="noopener">Faraz Farid</a>. Both are MIT licensed.</p>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 Fabian Faraz Farid, Jakub Antalik · MIT</span>
+  <nav aria-label="Legal">
+    <a href="/impressum/">Impressum</a>
+    <a href="/datenschutz/">Datenschutz</a>
+    <a href="https://github.com/farazfarid/dotsphere" rel="noopener">GitHub</a>
+  </nav>
+</footer>
+
+<script type="module" src="/assets/js/app.js"></script>
+</body>
+</html>

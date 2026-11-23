@@ -1,0 +1,10 @@
+# Dotsphere
+
+> Dotted thought-orb loading indicators for SwiftUI: twelve animated states for AI, agents and loading UIs. Pure Swift, no dependencies, MIT. A Swift port of thinking-orbs by Jakub Antalik with three extra states, palettes and image rendering.
+
+- Repository: https://github.com/farazfarid/dotsphere
+- Install: .package(url: "https://github.com/farazfarid/dotsphere", from: "1.0.0"), then `import Dotsphere`
+- Usage: DotOrb(state: .searching, size: 64)
+- Platforms: iOS 15, macOS 12, tvOS 15, watchOS 8, visionOS 1
+- Original (web, by Jakub Antalik): https://github.com/Jakubantalik/thinking-orbs
+- Author of the Swift port: Fabian Faraz Farid, https://www.farazfarid.com
